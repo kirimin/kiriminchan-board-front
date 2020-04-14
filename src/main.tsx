@@ -1,13 +1,9 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { render } from "react-dom";
+import { Top } from "./components/Top";
+import './index.css';
 
-class Layout extends React.Component {
-  render() {
-    return (
-      <h1>test!</h1>
-    );
-  }
-}
-
-const app = document.getElementById('app');
-ReactDOM.render(<Layout/>, app);
+render(
+  <Top />,
+  document.getElementById("root")
+);
