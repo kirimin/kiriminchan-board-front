@@ -43,7 +43,8 @@ module.exports = {
     devServer: {
         contentBase: "public",
         open: true,
-        port: 8081
+        port: 8081,
+        historyApiFallback: true,
     },
     context: path.join(__dirname, "src"),
     entry: "./main.tsx",

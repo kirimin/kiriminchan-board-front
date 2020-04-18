@@ -1,0 +1,18 @@
+.thread_detail {
+    padding: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.thread_sumally:hover {
+    background-color: #FF4081;
+}
+
+.thread_sumally_thread_header {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.thread_sumally_comment_parent {
+    margin-top: 16px;
+}

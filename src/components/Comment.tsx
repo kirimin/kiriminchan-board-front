@@ -1,15 +1,15 @@
 import * as React from "react";
 import './Comment.css'
+import { CommentModel } from "../models/CommentModel"
 
 export const Comment: React.FC<{
-    text: string
-}> = ({text}) => {
-    const [count, setCount] = React.useState(0);
+    comment: CommentModel
+}> = ({comment}) => {
   
     return (
       <div className="comment_parent">
-        <p className="comment_header">きりみんちゃん id:00001 2020/04/10 21:00</p>
-        <p className="comment_text">{text}</p>
+        <p className="comment_header">{comment.createdUserName} id:{comment.commentId} 投稿：{comment.updatedAt}</p>
+    <p className="comment_text">{comment.text}</p>
       </div>
     );
   }
