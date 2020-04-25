@@ -2,31 +2,29 @@ import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './CreateNewThread.css';
-import { UserContext } from '../Context/UserContext';
 
-type CreateThreadRequest = {
-  title: string;
+type CreateCommentRequest = {
+  threadId: string;
   text: string;
 };
 
-export const CreateNewThread: React.FC<{
+export const CreateNewComment: React.FC<{
   updateListener: Function;
-}> = ({ updateListener }) => {
+  threadId: number;
+}> = ({ updateListener, threadId }) => {
   const { register, setValue, handleSubmit, errors } = useForm<
-    CreateThreadRequest
+    CreateCommentRequest
   >();
-  const { user } = React.useContext(UserContext);
-  const onSubmit = handleSubmit(({ title, text }) => {
+  const onSubmit = handleSubmit(({ text }) => {
     (async function load() {
       const result = await Axios.post(
-        'http://localhost:8080/api/createNewThread',
+        'http://localhost:8080/api/createNewComment',
         {
-          createdUserId: user?.userId,
-          title: title,
+          createdUserId: 1,
+          threadId: threadId,
           text: text,
         }
       );
-      setValue('title', '');
       setValue('text', '');
       updateListener();
     })();
@@ -34,15 +32,9 @@ export const CreateNewThread: React.FC<{
   return (
     <div className="create_new_thread_parent">
       <form onSubmit={onSubmit}>
-        <h2>スレッドをつくる</h2>
+        {setValue('createUserId', 1)}
+        <h2>コメントする</h2>
         <div className="new_thread_input">
-          <p>タイトル</p>
-          <input
-            className="create_new_thread_title"
-            name="title"
-            ref={register({ required: true })}
-          />
-          <p>本文</p>
           <textarea
             className="create_new_thread_text"
             name="text"
