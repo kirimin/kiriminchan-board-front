@@ -1,17 +1,9 @@
-// Add the Firebase products that you want to use
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/analytics';
 import * as React from 'react';
 import Axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useParams,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ThreadSumally } from './ThreadSumally';
 import { CreateNewThread } from './CreateNewThread';
 import { ThreadModel } from '../models/ThreadModel';
@@ -29,7 +21,7 @@ export const Top: React.FC = () => {
 
   React.useEffect(() => {
     if (isLoading) {
-      (async function load() {
+      (async function load(): Promise<void> {
         console.log('load');
         const result = await Axios(
           'http://localhost:8080/api/getThreadsSumally'
@@ -40,13 +32,13 @@ export const Top: React.FC = () => {
     }
   });
 
-  function updateListener() {
+  function updateListener(): void {
     if (!isLoading) {
       setIsLoading(true);
     }
   }
 
-  function onClickLogout() {
+  function onClickLogout(): void {
     firebaseApp
       .auth()
       .signOut()
@@ -65,14 +57,20 @@ export const Top: React.FC = () => {
       <div className="top_header">
         <h1>きりみんちゃん掲示板</h1>
         {user?.userId == null && (
-          <button onClick={() => history.push('/signup')}>新規登録</button>
+          <button onClick={(): void => history.push('/signup')}>
+            新規登録
+          </button>
         )}
         {user?.userId == null && (
-          <button onClick={() => history.push('/signin')}>ログイン</button>
+          <button onClick={(): void => history.push('/signin')}>
+            ログイン
+          </button>
         )}
         {user?.userId && (
           <div>
-            <p>{user.screenName}</p>
+            <p onClick={(): void => history.push('/settings')}>
+              {user.screenName}
+            </p>
             <button onClick={onClickLogout}>ログアウト</button>
           </div>
         )}
@@ -85,7 +83,7 @@ export const Top: React.FC = () => {
         <div
           key={item.threadId}
           className="top_thread_sumally_parent"
-          onClick={() => history.push('/thread/' + item.threadId)}
+          onClick={(): void => history.push('/thread/' + item.threadId)}
         >
           <ThreadSumally
             key={item.threadId}

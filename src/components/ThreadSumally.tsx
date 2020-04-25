@@ -9,15 +9,12 @@ export const ThreadSumally: React.FC<{
   thread: ThreadModel;
   updateListener: Function;
 }> = ({ thread, updateListener }) => {
-  const { user, setUser } = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   const onClickDelete = () => {
-    (async function load() {
-      const result = await Axios.post(
-        'http://localhost:8080/api/deleteThread',
-        {
-          threadId: thread.threadId,
-        }
-      );
+    (async function load(): Promise<void> {
+      await Axios.post('http://localhost:8080/api/deleteThread', {
+        threadId: thread.threadId,
+      });
       updateListener ? updateListener() : null;
     })();
   };

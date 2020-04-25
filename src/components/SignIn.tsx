@@ -5,7 +5,7 @@ import './SignIn.css';
 import { UserContext } from '../Context/UserContext';
 import { firebaseApp } from '../firebase';
 import { useCookies } from 'react-cookie';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 
 type SignInForm = {
   mail: string;
@@ -17,7 +17,7 @@ export const SignIn: React.FC<{}> = () => {
   const { user, setUser } = React.useContext(UserContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login-cookie']);
   if (user?.userId) {
-    useHistory().push('/');
+    return <Redirect to={'/'}></Redirect>;
   }
   const onSubmit = handleSubmit(({ mail, pass }) => {
     firebaseApp
@@ -27,19 +27,19 @@ export const SignIn: React.FC<{}> = () => {
         const user = firebaseApp.auth().currentUser;
         if (user) {
           const uid = user.uid;
-          (async function load() {
+          (async function load(): Promise<void> {
             const getUserRes = await Axios(
               'http://localhost:8080/api/getUser/' + uid
             );
-            setCookie('user', getUserRes.data, { path: '/' });
+            setCookie('user', getUserRes.data);
             setUser(getUserRes.data);
           })();
         }
       })
       .catch(function (error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
         if (errorCode == 'auth/weak-password') {
           alert('The password is too weak.');
         } else {

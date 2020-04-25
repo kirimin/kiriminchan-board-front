@@ -1,13 +1,6 @@
 import * as React from 'react';
 import Axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useParams,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Comment } from './Comment';
 import { CreateNewComment } from './CreateNewComment';
 import { ThreadModel } from '../models/ThreadModel';
@@ -18,11 +11,12 @@ import { LoginHandler } from './LoginHandler';
 export const ThreadDetail: React.FC<{}> = () => {
   const [thread, setThread] = React.useState<ThreadModel>();
   const [isLoading, setIsLoading] = React.useState(true);
-  const { user, setUser } = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   const { id } = useParams();
+  const history = useHistory();
   React.useEffect(() => {
     if (isLoading) {
-      (async function load() {
+      (async function load(): Promise<void> {
         console.log('load');
         const result = await Axios(
           'http://localhost:8080/api/getThreadDetail/' + id
@@ -32,7 +26,7 @@ export const ThreadDetail: React.FC<{}> = () => {
       setIsLoading(false);
     }
   });
-  function updateListener() {
+  function updateListener(): void {
     if (!isLoading) {
       setIsLoading(true);
     }
@@ -40,8 +34,6 @@ export const ThreadDetail: React.FC<{}> = () => {
   if (thread === undefined) {
     return <p>Thread Not found</p>;
   }
-  const history = useHistory();
-
   return (
     <div className="thread_detail">
       <LoginHandler />

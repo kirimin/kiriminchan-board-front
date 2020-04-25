@@ -9,14 +9,11 @@ export const Comment: React.FC<{
   comment: CommentModel;
 }> = ({ updateListener, comment }) => {
   const { user, setUser } = React.useContext(UserContext);
-  const onClickDelete = () => {
-    (async function load() {
-      const result = await Axios.post(
-        'http://localhost:8080/api/deleteComment',
-        {
-          commentId: comment.commentId,
-        }
-      );
+  const onClickDelete = (): void => {
+    (async function load(): Promise<void> {
+      await Axios.post('http://localhost:8080/api/deleteComment', {
+        commentId: comment.commentId,
+      });
       updateListener ? updateListener() : null;
     })();
   };

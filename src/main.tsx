@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Top } from './components/Top';
 import { ThreadDetail } from './components/ThreadDetail';
 import './index.css';
-import { UserProvider, UserContext } from './Context/UserContext';
+import { UserProvider } from './Context/UserContext';
 import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
+import { Settings } from './components/Settings';
 
 render(
   <UserProvider>
@@ -15,6 +16,7 @@ render(
         <Route exact path="/" component={Top}></Route>
         <Route exact path="/signup" component={SignUp}></Route>
         <Route exact path="/signin" component={SignIn}></Route>
+        <Route exact path="/settings" component={Settings}></Route>
         <Route path="/thread/:id" component={ThreadDetail}></Route>
       </Switch>
     </Router>

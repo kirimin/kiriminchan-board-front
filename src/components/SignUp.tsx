@@ -5,7 +5,7 @@ import './SignUp.css';
 import { UserContext } from '../Context/UserContext';
 import { firebaseApp } from '../firebase';
 import { useCookies } from 'react-cookie';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 
 type SignUpForm = {
   mail: string;
@@ -19,7 +19,7 @@ export const SignUp: React.FC<{}> = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['login-cookie']);
 
   if (user?.userId) {
-    useHistory().push('/');
+    return <Redirect to={'/'}></Redirect>;
   }
 
   const onSubmit = handleSubmit(({ mail, pass, name }) => {
@@ -29,7 +29,7 @@ export const SignUp: React.FC<{}> = () => {
       .then((res) => {
         if (res.user) {
           const uid = res.user.uid;
-          (async function load() {
+          (async function load(): Promise<void> {
             await Axios.post('http://localhost:8080/api/createNewUser', {
               name: name,
               firebaseUid: uid,
@@ -44,8 +44,8 @@ export const SignUp: React.FC<{}> = () => {
       })
       .catch(function (error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
         if (errorCode == 'auth/weak-password') {
           alert('The password is too weak.');
         } else {
