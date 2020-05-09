@@ -1,0 +1,33 @@
+.app_header {
+  background-color: #03a9f4;
+  box-shadow: 2px 2px 2px 0px #aaa;
+  width: 100%;
+}
+
+.app_header_contents {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.app_header_title {
+  color: white;
+  flex-grow: 2;
+  max-width: 840px;
+  font-size: 32px;
+}
+
+.app_header_account {
+  text-align: right;
+}
+
+.app_header_account_user_name {
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+}

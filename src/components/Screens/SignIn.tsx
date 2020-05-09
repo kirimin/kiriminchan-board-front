@@ -6,6 +6,7 @@ import { UserContext } from '../../Context/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
+import { AppHeader } from '../modules/AppHeader';
 
 type SignInForm = {
   mail: string;
@@ -50,26 +51,29 @@ export const SignIn: React.FC<{}> = () => {
 
   return (
     <div className="signin">
-      <form onSubmit={onSubmit}>
-        <h2>ログイン</h2>
-        <div className="">
-          <p>メールアドレス</p>
-          <input
-            type="mail"
-            className=""
-            name="mail"
-            ref={register({ required: true })}
-          />
-          <p>パスワード</p>
-          <input
-            type="password"
-            className=""
-            name="pass"
-            ref={register({ required: true })}
-          ></input>
-        </div>
-        <input type="submit" />
-      </form>
+      <AppHeader isShowAccount={false} />
+      <div className="signin_body">
+        <form className="signin_form" onSubmit={onSubmit}>
+          <h2>ログイン</h2>
+          <div className="">
+            <p>メールアドレス</p>
+            <input
+              type="mail"
+              className=""
+              name="mail"
+              ref={register({ required: true })}
+            />
+            <p>パスワード</p>
+            <input
+              type="password"
+              className=""
+              name="pass"
+              ref={register({ required: true })}
+            ></input>
+          </div>
+          <input type="submit" />
+        </form>
+      </div>
     </div>
   );
 };

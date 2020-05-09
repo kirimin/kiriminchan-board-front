@@ -1,3 +1,10 @@
-.signup {
-  margin: 16px;
+.signup_body {
+  max-width: 940px;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
+.signup_form {
+  margin-top: 16px;
 }

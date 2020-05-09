@@ -1,5 +1,25 @@
-.thread_detail {
+.thread_detail_body {
+  max-width: 940px;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
+.thread_detail_body_title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.thread_detail_comments_parent {
   padding: 16px;
   border-radius: 8px;
+  box-shadow: 2px 2px 5px #aaa;
+  background-color: #fff;
+  color: #333;
   text-decoration: none;
+}
+
+.thread_detail_back_button {
+  margin-top: 16px;
 }

@@ -25,7 +25,7 @@ export const Comment: React.FC<{
       </p>
       <p className="comment_text">{comment.text}</p>
       {updateListener && user?.userId === comment.createdUserId && (
-        <button onClick={onClickDelete}>削除</button>
+        <button onClick={onClickDelete}>コメント削除</button>
       )}
     </div>
   );

@@ -1,12 +1,13 @@
+import './threadDetail.css';
 import * as React from 'react';
 import Axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 import { Comment } from '../modules/Comment';
 import { CreateNewComment } from '../modules/CreateNewComment';
 import { ThreadModel } from '../../models/ThreadModel';
-import './threadDetail.css';
 import { UserContext } from '../../Context/UserContext';
 import { LoginHandler } from '../modules/LoginHandler';
+import { AppHeader } from '../modules/AppHeader';
 
 export const ThreadDetail: React.FC<{}> = () => {
   const [thread, setThread] = React.useState<ThreadModel>();
@@ -36,29 +37,34 @@ export const ThreadDetail: React.FC<{}> = () => {
   return (
     <div className="thread_detail">
       <LoginHandler />
-      <p className="thread_sumally_thread_header">{thread.title}</p>
-      <div className="thread_sumally_comment_parent">
-        {
-          <ul>
-            {thread.comments.map((comment) => {
-              return (
-                <Comment
-                  key={comment.commentId}
-                  comment={comment}
-                  updateListener={updateListener}
-                />
-              );
-            })}
-          </ul>
-        }
+      <AppHeader isShowAccount={true} />
+      <div className="thread_detail_body">
+        <p className="thread_detail_body_title">{thread.title}</p>
+        <div className="thread_detail_comments_parent">
+          {
+            <ul>
+              {thread.comments.map((comment) => {
+                return (
+                  <Comment
+                    key={comment.commentId}
+                    comment={comment}
+                    updateListener={updateListener}
+                  />
+                );
+              })}
+            </ul>
+          }
+        </div>
+        {user?.userId && (
+          <CreateNewComment
+            updateListener={updateListener}
+            threadId={thread.threadId}
+          />
+        )}
+        <button className="thread_detail_back_button" onClick={history.goBack}>
+          戻る
+        </button>
       </div>
-      {user?.userId && (
-        <CreateNewComment
-          updateListener={updateListener}
-          threadId={thread.threadId}
-        />
-      )}
-      <button onClick={history.goBack}>戻る</button>
     </div>
   );
 };

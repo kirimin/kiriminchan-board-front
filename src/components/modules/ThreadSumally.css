@@ -1,14 +1,14 @@
 .thread_sumally {
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 2px 2px 5px #AAA;
-  background-color: #FFF;
+  box-shadow: 2px 2px 5px #aaa;
+  background-color: #fff;
   color: #333;
   text-decoration: none;
 }
 
 .thread_sumally:hover {
-  background-color: #CCC;
+  background-color: #ccc;
 }
 
 .thread_sumally_thread_header {

@@ -1,15 +1,18 @@
 .comment_parent {
   padding: 16px;
   background-color: #b3e5fc;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 .comment_text {
-  font-size: 16px;
+  font-size: 20px;
   color: #555;
 }
 
 .comment_header {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   color: #888;
   margin-bottom: 4px;

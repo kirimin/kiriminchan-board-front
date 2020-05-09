@@ -1,10 +1,10 @@
-.signin_body {
+.settings_body {
   max-width: 940px;
   margin: 0 auto;
   height: 100%;
   width: 100%;
 }
 
-.signin_form {
-  margin-top: 16px;
+.settings_delete_account_button {
+  margin-top: 16dp;
 }

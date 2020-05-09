@@ -7,7 +7,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/analytics';
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: env.FIREBASE_API_KEY,
   authDomain: env.FIREBASE_AUTH_DOMAIN,
   databaseURL: env.FIREBASE_DATABASE_URL,

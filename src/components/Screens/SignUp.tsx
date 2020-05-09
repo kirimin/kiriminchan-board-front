@@ -6,6 +6,7 @@ import { UserContext } from '../../Context/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
+import { AppHeader } from '../modules/AppHeader';
 
 type SignUpForm = {
   mail: string;
@@ -56,33 +57,36 @@ export const SignUp: React.FC<{}> = () => {
 
   return (
     <div className="signup">
-      <form onSubmit={onSubmit}>
-        <h2>新規登録</h2>
-        <div className="">
-          <p>メールアドレス</p>
-          <input
-            type="mail"
-            className=""
-            name="mail"
-            ref={register({ required: true })}
-          />
-          <p>パスワード</p>
-          <input
-            type="password"
-            className=""
-            name="pass"
-            ref={register({ required: true })}
-          ></input>
-          <p>表示名</p>
-          <input
-            type="name"
-            className=""
-            name="name"
-            ref={register({ required: true })}
-          ></input>
-        </div>
-        <input type="submit" />
-      </form>
+      <AppHeader isShowAccount={false} />
+      <div className="signup_body">
+        <form className="signup_form" onSubmit={onSubmit}>
+          <h2>新規登録</h2>
+          <div>
+            <p>メールアドレス</p>
+            <input
+              type="mail"
+              className=""
+              name="mail"
+              ref={register({ required: true })}
+            />
+            <p>パスワード</p>
+            <input
+              type="password"
+              className=""
+              name="pass"
+              ref={register({ required: true })}
+            ></input>
+            <p>表示名</p>
+            <input
+              type="name"
+              className=""
+              name="name"
+              ref={register({ required: true })}
+            ></input>
+          </div>
+          <input type="submit" />
+        </form>
+      </div>
     </div>
   );
 };
