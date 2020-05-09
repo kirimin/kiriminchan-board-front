@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
-import { Comment } from './Comment';
-import { CreateNewComment } from './CreateNewComment';
-import { ThreadModel } from '../models/ThreadModel';
+import { Comment } from '../modules/Comment';
+import { CreateNewComment } from '../modules/CreateNewComment';
+import { ThreadModel } from '../../models/ThreadModel';
 import './threadDetail.css';
-import { UserContext } from '../Context/UserContext';
-import { LoginHandler } from './LoginHandler';
+import { UserContext } from '../../Context/UserContext';
+import { LoginHandler } from '../modules/LoginHandler';
 
 export const ThreadDetail: React.FC<{}> = () => {
   const [thread, setThread] = React.useState<ThreadModel>();
@@ -17,7 +17,6 @@ export const ThreadDetail: React.FC<{}> = () => {
   React.useEffect(() => {
     if (isLoading) {
       (async function load(): Promise<void> {
-        console.log('load');
         const result = await Axios(
           'http://localhost:8080/api/getThreadDetail/' + id
         );

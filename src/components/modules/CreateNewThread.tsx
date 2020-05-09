@@ -2,7 +2,7 @@ import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './CreateNewThread.css';
-import { UserContext } from '../Context/UserContext';
+import { UserContext } from '../../Context/UserContext';
 
 type CreateThreadRequest = {
   title: string;
@@ -49,7 +49,7 @@ export const CreateNewThread: React.FC<{
             ref={register({ required: true })}
           ></textarea>
         </div>
-        <input type="submit" />
+        <input type="submit" value="作成する！" />
       </form>
     </div>
   );

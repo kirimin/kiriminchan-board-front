@@ -1,9 +1,8 @@
 import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
-import './SignIn.css';
-import { UserContext } from '../Context/UserContext';
-import { firebaseApp } from '../firebase';
+import { UserContext } from '../../Context/UserContext';
+import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
 

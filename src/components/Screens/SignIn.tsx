@@ -1,44 +1,38 @@
 import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
-import './SignUp.css';
-import { UserContext } from '../Context/UserContext';
-import { firebaseApp } from '../firebase';
+import './SignIn.css';
+import { UserContext } from '../../Context/UserContext';
+import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
 
-type SignUpForm = {
+type SignInForm = {
   mail: string;
   pass: string;
-  name: string;
 };
 
-export const SignUp: React.FC<{}> = () => {
-  const { register, setValue, handleSubmit, errors } = useForm<SignUpForm>();
+export const SignIn: React.FC<{}> = () => {
+  const { register, setValue, handleSubmit, errors } = useForm<SignInForm>();
   const { user, setUser } = React.useContext(UserContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login-cookie']);
-
   if (user?.userId) {
     return <Redirect to={'/'}></Redirect>;
   }
-
-  const onSubmit = handleSubmit(({ mail, pass, name }) => {
+  const onSubmit = handleSubmit(({ mail, pass }) => {
     firebaseApp
       .auth()
-      .createUserWithEmailAndPassword(mail, pass)
+      .signInWithEmailAndPassword(mail, pass)
       .then((res) => {
-        if (res.user) {
-          const uid = res.user.uid;
+        const user = firebaseApp.auth().currentUser;
+        if (user) {
+          const uid = user.uid;
           (async function load(): Promise<void> {
-            await Axios.post('http://localhost:8080/api/createNewUser', {
-              name: name,
-              firebaseUid: uid,
-            });
             const getUserRes = await Axios(
               'http://localhost:8080/api/getUser/' + uid
             );
-            setUser(getUserRes.data);
             setCookie('user', getUserRes.data);
+            setUser(getUserRes.data);
           })();
         }
       })
@@ -55,9 +49,9 @@ export const SignUp: React.FC<{}> = () => {
   });
 
   return (
-    <div className="signup">
+    <div className="signin">
       <form onSubmit={onSubmit}>
-        <h2>新規登録</h2>
+        <h2>ログイン</h2>
         <div className="">
           <p>メールアドレス</p>
           <input
@@ -71,13 +65,6 @@ export const SignUp: React.FC<{}> = () => {
             type="password"
             className=""
             name="pass"
-            ref={register({ required: true })}
-          ></input>
-          <p>表示名</p>
-          <input
-            type="name"
-            className=""
-            name="name"
             ref={register({ required: true })}
           ></input>
         </div>
