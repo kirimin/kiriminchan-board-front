@@ -4,9 +4,9 @@ export type CommentModel = {
   title: string;
   createdUserId: number;
   createdUserName: string;
+  commentNumber: number;
   text: string;
   stampId: number;
   createdAt: string;
   updatedAt: string;
-  isDeleted: string;
 };

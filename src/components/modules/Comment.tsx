@@ -21,7 +21,7 @@ export const Comment: React.FC<{
   return (
     <div className="comment_parent">
       <p className="comment_header">
-        {comment.commentId} {comment.createdUserName} {comment.updatedAt}
+        {comment.commentNumber} {comment.createdUserName} {comment.updatedAt}
       </p>
       <p className="comment_text">{comment.text}</p>
       {updateListener && user?.userId === comment.createdUserId && (
