@@ -4,6 +4,7 @@ import { ThreadModel } from '../../models/ThreadModel';
 import { UserContext, User } from '../../Context/UserContext';
 import './ThreadSumally.css';
 import Axios from 'axios';
+import { sha256 } from 'js-sha256';
 
 export const ThreadSumally: React.FC<{
   thread: ThreadModel;
@@ -23,7 +24,9 @@ export const ThreadSumally: React.FC<{
     <div className="thread_sumally">
       <p className="thread_sumally_thread_header">{thread.title}</p>
       <p>
-        {thread.createdUserName} {thread.createdAt}
+        {thread.createdUserName}{' '}
+        {'id:' + sha256(thread.createdUserName).substr(0, 10) + '　'}{' '}
+        {thread.createdAt}
       </p>
       <div className="thread_sumally_comment_parent">
         <Comment key="top" comment={thread.comments[0]} updateListener={null} />

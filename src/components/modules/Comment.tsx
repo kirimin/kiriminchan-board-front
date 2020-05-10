@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './Comment.css';
+import { sha256 } from 'js-sha256';
 import { CommentModel } from '../../models/CommentModel';
 import Axios from 'axios';
 import { UserContext } from '../../Context/UserContext';
@@ -21,7 +22,9 @@ export const Comment: React.FC<{
   return (
     <div className="comment_parent">
       <p className="comment_header">
-        {comment.commentNumber} {comment.createdUserName} {comment.updatedAt}
+        {comment.commentNumber} {comment.createdUserName + '　'}
+        {'id:' + sha256(comment.createdUserName).substr(0, 10) + '　'}
+        {comment.updatedAt}
       </p>
       <p className="comment_text">{comment.text}</p>
       {updateListener && user?.userId === comment.createdUserId && (
