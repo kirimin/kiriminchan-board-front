@@ -1,7 +1,7 @@
 import './AppHeader.css';
 import * as React from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import { UserContext, User } from '../../Context/UserContext';
+import { UserContext, User } from '../../contexts/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 

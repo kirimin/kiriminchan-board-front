@@ -16,4 +16,9 @@ const firebaseConfig = {
   messagingSenderId: env.FIREBASE_MESSAGING_SENDER_ID,
   appId: env.FIREBASE_APP_ID,
 };
+
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+firebaseApp.auth().onAuthStateChanged((user) => {
+  firebase.auth().updateCurrentUser(user);
+});

@@ -1,12 +1,12 @@
 import './Settings.css';
 import * as React from 'react';
-import Axios from 'axios';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
 import { AppHeader } from './AppHeader';
 import { LoginHandler } from './LoginHandler';
+import { deleteUser } from '../../apis/UserRepository';
 
 export const Settings: React.FC<{}> = () => {
   const { user, setUser } = React.useContext(UserContext);
@@ -17,16 +17,14 @@ export const Settings: React.FC<{}> = () => {
 
   const onClickDelete = (): void => {
     (async function load(): Promise<void> {
-      await Axios.post('http://localhost:8080/api/deleteUser', {
-        userId: user?.userId,
-      });
-      firebaseApp
-        .auth()
-        .currentUser?.delete()
-        .then(function () {
-          setUser(null);
-          removeCookie('user');
-        });
+      try {
+        await deleteUser(user.userId);
+        await firebaseApp.auth().currentUser?.delete();
+        setUser(null);
+        removeCookie('user');
+      } catch (error) {
+        alert(error.message);
+      }
     })();
   };
 

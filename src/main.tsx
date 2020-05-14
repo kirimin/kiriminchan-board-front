@@ -7,7 +7,7 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Top } from './components/Screens/Top';
 import { ThreadDetail } from './components/Screens/ThreadDetail';
-import { UserProvider } from './Context/UserContext';
+import { UserProvider } from './contexts/UserContext';
 import { SignUp } from './components/Screens/SignUp';
 import { SignIn } from './components/Screens/SignIn';
 import { Settings } from './components/modules/Settings';

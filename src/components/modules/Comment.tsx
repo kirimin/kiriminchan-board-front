@@ -1,9 +1,8 @@
 import * as React from 'react';
 import './Comment.css';
-import { sha256 } from 'js-sha256';
 import { CommentModel } from '../../models/CommentModel';
-import Axios from 'axios';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+import { deleteComment } from '../../apis/CommentRepository';
 
 export const Comment: React.FC<{
   updateListener: Function | null;
@@ -11,19 +10,16 @@ export const Comment: React.FC<{
 }> = ({ updateListener, comment }) => {
   const { user } = React.useContext(UserContext);
   const onClickDelete = (): void => {
-    (async function load(): Promise<void> {
-      await Axios.post('http://localhost:8080/api/deleteComment', {
-        commentId: comment.commentId,
-      });
+    deleteComment(comment.commentId, user!.userId).then(() => {
       updateListener ? updateListener() : null;
-    })();
+    });
   };
 
   return (
     <div className="comment_parent">
       <p className="comment_header">
         {comment.commentNumber} {comment.createdUserName + '　'}
-        {'id:' + sha256(comment.createdUserName).substr(0, 10) + '　'}
+        {'id:' + comment.createdUserId + '　'}
         {comment.updatedAt}
       </p>
       <p className="comment_text">{comment.text}</p>

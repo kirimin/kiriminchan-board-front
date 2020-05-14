@@ -2,11 +2,12 @@ import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './SignUp.css';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
 import { AppHeader } from '../modules/AppHeader';
+import { createNewUser, getUser } from '../../apis/UserRepository';
 
 type SignUpForm = {
   mail: string;
@@ -30,17 +31,12 @@ export const SignUp: React.FC<{}> = () => {
       .then((res) => {
         if (res.user) {
           const uid = res.user.uid;
-          (async function load(): Promise<void> {
-            await Axios.post('http://localhost:8080/api/createNewUser', {
-              name: name,
-              firebaseUid: uid,
+          createNewUser(name, uid).then(() => {
+            getUser(uid).then((res) => {
+              setUser(res.data);
+              setCookie('user', res.data);
             });
-            const getUserRes = await Axios(
-              'http://localhost:8080/api/getUser/' + uid
-            );
-            setUser(getUserRes.data);
-            setCookie('user', getUserRes.data);
-          })();
+          });
         }
       })
       .catch(function (error) {

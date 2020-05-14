@@ -1,13 +1,13 @@
 import './Top.css';
 import * as React from 'react';
-import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { ThreadSumally } from '../modules/ThreadSumally';
 import { CreateNewThread } from '../modules/CreateNewThread';
 import { ThreadModel } from '../../models/ThreadModel';
 import { LoginHandler } from '../modules/LoginHandler';
-import { UserContext, User } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { AppHeader } from '../modules/AppHeader';
+import { getThreadSummary } from '../../apis/ThreadRepository';
 
 export const Top: React.FC = () => {
   const [threads, setThreads] = React.useState<Array<ThreadModel>>([]);
@@ -16,13 +16,10 @@ export const Top: React.FC = () => {
 
   React.useEffect(() => {
     if (isLoading) {
-      (async function load(): Promise<void> {
-        const result = await Axios(
-          'http://localhost:8080/api/getThreadsSumally'
-        );
-        setThreads(result.data);
-      })();
-      setIsLoading(false);
+      getThreadSummary().then((res) => {
+        setThreads(res.data);
+        setIsLoading(false);
+      });
     }
   });
 

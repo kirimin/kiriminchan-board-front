@@ -2,11 +2,12 @@ import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './SignIn.css';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
 import { AppHeader } from '../modules/AppHeader';
+import { updateUserToken, getUser } from '../../apis/UserRepository';
 
 type SignInForm = {
   mail: string;
@@ -21,32 +22,22 @@ export const SignIn: React.FC<{}> = () => {
     return <Redirect to={'/'}></Redirect>;
   }
   const onSubmit = handleSubmit(({ mail, pass }) => {
-    firebaseApp
-      .auth()
-      .signInWithEmailAndPassword(mail, pass)
-      .then((res) => {
+    (async function load(): Promise<void> {
+      try {
+        await firebaseApp.auth().signInWithEmailAndPassword(mail, pass);
         const user = firebaseApp.auth().currentUser;
         if (user) {
           const uid = user.uid;
-          (async function load(): Promise<void> {
-            const getUserRes = await Axios(
-              'http://localhost:8080/api/getUser/' + uid
-            );
-            setCookie('user', getUserRes.data);
-            setUser(getUserRes.data);
-          })();
+          const token = await user.getIdToken();
+          await updateUserToken(uid, token);
+          const res = await getUser(uid);
+          setCookie('user', res.data);
+          setUser(res.data);
         }
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode == 'auth/weak-password') {
-          alert('The password is too weak.');
-        } else {
-          alert(errorMessage);
-        }
-      });
+      } catch (error) {
+        alert(error.message);
+      }
+    })();
   });
 
   return (
@@ -57,16 +48,10 @@ export const SignIn: React.FC<{}> = () => {
           <h2>ログイン</h2>
           <div className="">
             <p>メールアドレス</p>
-            <input
-              type="mail"
-              className=""
-              name="mail"
-              ref={register({ required: true })}
-            />
+            <input type="mail" name="mail" ref={register({ required: true })} />
             <p>パスワード</p>
             <input
               type="password"
-              className=""
               name="pass"
               ref={register({ required: true })}
             ></input>

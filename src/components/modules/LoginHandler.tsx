@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { useCookies } from 'react-cookie';
 
 export const LoginHandler: React.FC<{}> = () => {

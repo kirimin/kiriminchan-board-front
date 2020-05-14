@@ -2,7 +2,8 @@ import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './CreateNewThread.css';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+import { createNewThread } from '../../apis/ThreadRepository';
 
 type CreateThreadRequest = {
   title: string;
@@ -17,19 +18,11 @@ export const CreateNewThread: React.FC<{
   >();
   const { user } = React.useContext(UserContext);
   const onSubmit = handleSubmit(({ title, text }) => {
-    (async function load() {
-      const result = await Axios.post(
-        'http://localhost:8080/api/createNewThread',
-        {
-          createdUserId: user?.userId,
-          title: title,
-          text: text,
-        }
-      );
+    createNewThread(user!.userId, title, text).then(() => {
       setValue('title', '');
       setValue('text', '');
       updateListener();
-    })();
+    });
   });
   return (
     <div className="create_new_thread_parent">

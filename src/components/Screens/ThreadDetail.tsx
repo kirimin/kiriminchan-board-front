@@ -1,13 +1,13 @@
 import './threadDetail.css';
 import * as React from 'react';
-import Axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 import { Comment } from '../modules/Comment';
 import { CreateNewComment } from '../modules/CreateNewComment';
 import { ThreadModel } from '../../models/ThreadModel';
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import { LoginHandler } from '../modules/LoginHandler';
 import { AppHeader } from '../modules/AppHeader';
+import { getThreadDetail } from '../../apis/ThreadRepository';
 
 export const ThreadDetail: React.FC<{}> = () => {
   const [thread, setThread] = React.useState<ThreadModel>();
@@ -15,17 +15,16 @@ export const ThreadDetail: React.FC<{}> = () => {
   const { user } = React.useContext(UserContext);
   const { id } = useParams();
   const history = useHistory();
+
   React.useEffect(() => {
     if (isLoading) {
-      (async function load(): Promise<void> {
-        const result = await Axios(
-          'http://localhost:8080/api/getThreadDetail/' + id
-        );
-        setThread(result.data);
-      })();
-      setIsLoading(false);
+      getThreadDetail(id!).then((res) => {
+        setThread(res.data);
+        setIsLoading(false);
+      });
     }
   });
+
   function updateListener(): void {
     if (!isLoading) {
       setIsLoading(true);

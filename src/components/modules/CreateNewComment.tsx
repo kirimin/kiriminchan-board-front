@@ -2,6 +2,8 @@ import * as React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './CreateNewThread.css';
+import { createNewComment } from '../../apis/CommentRepository';
+import { UserContext } from '../../contexts/UserContext';
 
 type CreateCommentRequest = {
   threadId: string;
@@ -12,22 +14,15 @@ export const CreateNewComment: React.FC<{
   updateListener: Function;
   threadId: number;
 }> = ({ updateListener, threadId }) => {
+  const { user } = React.useContext(UserContext);
   const { register, setValue, handleSubmit, errors } = useForm<
     CreateCommentRequest
   >();
   const onSubmit = handleSubmit(({ text }) => {
-    (async function load() {
-      const result = await Axios.post(
-        'http://localhost:8080/api/createNewComment',
-        {
-          createdUserId: 1,
-          threadId: threadId,
-          text: text,
-        }
-      );
+    createNewComment(threadId, user!.userId, text).then(() => {
       setValue('text', '');
       updateListener();
-    })();
+    });
   });
   return (
     <div className="create_new_thread_parent">
