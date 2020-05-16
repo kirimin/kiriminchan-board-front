@@ -10,9 +10,13 @@ export const Comment: React.FC<{
 }> = ({ updateListener, comment }) => {
   const { user } = React.useContext(UserContext);
   const onClickDelete = (): void => {
-    deleteComment(comment.commentId, user!.userId).then(() => {
-      updateListener ? updateListener() : null;
-    });
+    deleteComment(comment.commentId, user!.userId)
+      .then(() => {
+        updateListener ? updateListener() : null;
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (

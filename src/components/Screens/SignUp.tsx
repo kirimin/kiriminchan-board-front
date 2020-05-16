@@ -31,12 +31,16 @@ export const SignUp: React.FC<{}> = () => {
       .then((res) => {
         if (res.user) {
           const uid = res.user.uid;
-          createNewUser(name, uid).then(() => {
-            getUser(uid).then((res) => {
-              setUser(res.data);
-              setCookie('user', res.data);
+          createNewUser(name, uid)
+            .then(() => {
+              getUser(uid).then((res) => {
+                setUser(res.data);
+                setCookie('user', res.data);
+              });
+            })
+            .catch((error) => {
+              alert(error.message);
             });
-          });
         }
       })
       .catch(function (error) {

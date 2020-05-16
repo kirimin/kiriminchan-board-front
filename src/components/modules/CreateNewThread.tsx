@@ -18,11 +18,15 @@ export const CreateNewThread: React.FC<{
   >();
   const { user } = React.useContext(UserContext);
   const onSubmit = handleSubmit(({ title, text }) => {
-    createNewThread(user!.userId, title, text).then(() => {
-      setValue('title', '');
-      setValue('text', '');
-      updateListener();
-    });
+    createNewThread(user!.userId, title, text)
+      .then(() => {
+        setValue('title', '');
+        setValue('text', '');
+        updateListener();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   });
   return (
     <div className="create_new_thread_parent">

@@ -19,10 +19,14 @@ export const CreateNewComment: React.FC<{
     CreateCommentRequest
   >();
   const onSubmit = handleSubmit(({ text }) => {
-    createNewComment(threadId, user!.userId, text).then(() => {
-      setValue('text', '');
-      updateListener();
-    });
+    createNewComment(threadId, user!.userId, text)
+      .then(() => {
+        setValue('text', '');
+        updateListener();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   });
   return (
     <div className="create_new_thread_parent">
