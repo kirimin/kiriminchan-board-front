@@ -13,7 +13,7 @@ export const AppHeader: React.FC<{
   const [cookies, setCookie, removeCookie] = useCookies(['login-cookie']);
   const history = useHistory();
 
-  if (isLoginChanged) {
+  if (isLoginChanged && history.location.pathname !== '/') {
     return <Redirect to={'/'}></Redirect>;
   }
 
@@ -26,7 +26,9 @@ export const AppHeader: React.FC<{
         removeCookie('user');
         setIsLoginChanged(true);
       })
-      .catch(function (error) {});
+      .catch(function (error) {
+        alert(error);
+      });
   }
 
   return (

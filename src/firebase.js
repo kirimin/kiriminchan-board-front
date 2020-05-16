@@ -20,5 +20,7 @@ const firebaseConfig = {
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 firebaseApp.auth().onAuthStateChanged((user) => {
-  firebase.auth().updateCurrentUser(user);
+  if (user) {
+    firebase.auth().updateCurrentUser(user);
+  }
 });
