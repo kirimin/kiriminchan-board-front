@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": "public",
+    "headers": [{
+      "source": "**/.*",
+      "headers": [ {
+        "key": "Cache-Control",
+        "value": "max-age=0"
+      }]
+    }],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
