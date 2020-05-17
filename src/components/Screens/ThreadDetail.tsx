@@ -1,4 +1,4 @@
-import './threadDetail.css';
+import './ThreadDetail.css';
 import * as React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Comment } from '../modules/Comment';
