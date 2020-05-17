@@ -10,7 +10,7 @@ import { ThreadDetail } from './components/Screens/ThreadDetail';
 import { UserProvider } from './contexts/UserContext';
 import { SignUp } from './components/Screens/SignUp';
 import { SignIn } from './components/Screens/SignIn';
-import { Settings } from './components/modules/Settings';
+import { Settings } from './components/Screens/Settings';
 
 render(
   <UserProvider>

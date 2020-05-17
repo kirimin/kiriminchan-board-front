@@ -3,8 +3,9 @@
   margin: 0 auto;
   height: 100%;
   width: 100%;
+  margin: 16px;
 }
 
-.settings_delete_account_button {
-  margin-top: 16dp;
+.settings_delete_account {
+  margin-top: 16px;
 }

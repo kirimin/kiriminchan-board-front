@@ -30,6 +30,9 @@ export const ThreadDetail: React.FC<{}> = () => {
       setIsLoading(true);
     }
   }
+  if (isLoading) {
+    return <div className="loader" />;
+  }
   if (thread === undefined) {
     return <p>Thread Not found</p>;
   }

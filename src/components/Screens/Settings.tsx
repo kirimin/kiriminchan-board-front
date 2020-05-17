@@ -4,8 +4,8 @@ import { UserContext } from '../../contexts/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
 import { Redirect } from 'react-router';
-import { AppHeader } from './AppHeader';
-import { LoginHandler } from './LoginHandler';
+import { AppHeader } from '../modules/AppHeader';
+import { LoginHandler } from '../modules/LoginHandler';
 import { deleteUser } from '../../apis/UserRepository';
 
 export const Settings: React.FC<{}> = () => {
@@ -33,6 +33,7 @@ export const Settings: React.FC<{}> = () => {
       <LoginHandler />
       <AppHeader isShowAccount={false} />
       <div className="settings_body">
+        <p>アカウント設定</p>
         <div className="settings_delete_account">
           <button onClick={onClickDelete}>アカウントを削除する</button>
         </div>

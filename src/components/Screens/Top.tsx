@@ -31,6 +31,10 @@ export const Top: React.FC = () => {
 
   const history = useHistory();
 
+  if (isLoading) {
+    return <div className="loader" />;
+  }
+
   return (
     <div className="top">
       <LoginHandler />

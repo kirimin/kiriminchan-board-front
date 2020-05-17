@@ -1,7 +1,6 @@
-import * as React from 'react';
-import Axios from 'axios';
-import { useForm } from 'react-hook-form';
 import './SignIn.css';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
 import { UserContext } from '../../contexts/UserContext';
 import { firebaseApp } from '../../firebase';
 import { useCookies } from 'react-cookie';
@@ -28,8 +27,6 @@ export const SignIn: React.FC<{}> = () => {
         const user = firebaseApp.auth().currentUser;
         if (user) {
           const uid = user.uid;
-          const token = await user.getIdToken();
-          await updateUserToken(uid, token);
           const res = await getUser(uid);
           setCookie('user', res.data);
           setUser(res.data);
