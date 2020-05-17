@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import './SignUp.css';
 import { UserContext } from '../../contexts/UserContext';
