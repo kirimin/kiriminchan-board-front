@@ -7,13 +7,12 @@ export class ApiInterface {
 
   async getRequest(api: string): Promise<any> {
     const domain = this.domain;
-    return await Axios(domain + api);
+    return Axios(domain + api);
   }
 
   async postRequest(api: string, body: any): Promise<any> {
     const domain = this.domain;
-    const token = await firebaseApp.auth().currentUser!.getIdToken(true);
-    body['token'] = token;
+    body['token'] = await firebaseApp.auth().currentUser!.getIdToken(true);
     return await Axios.post(domain + api, body);
   }
 }

@@ -51,7 +51,7 @@ export const SignIn: React.FC<{}> = () => {
               type="password"
               name="pass"
               ref={register({ required: true })}
-            ></input>
+            />
           </div>
           <input type="submit" />
         </form>

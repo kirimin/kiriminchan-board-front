@@ -18,6 +18,14 @@ export const CreateNewThread: React.FC<{
   >();
   const { user } = React.useContext(UserContext);
   const onSubmit = handleSubmit(({ title, text }) => {
+    if (title.length > 1000) {
+      alert('タイトルが長すぎます。1000文字以内にしてね。');
+      return;
+    }
+    if (text.length > 5000) {
+      alert('本文が長すぎます。5000文字以内にしてね。');
+      return;
+    }
     createNewThread(user!.userId, title, text)
       .then(() => {
         setValue('title', '');

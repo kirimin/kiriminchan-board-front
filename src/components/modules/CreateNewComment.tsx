@@ -19,6 +19,10 @@ export const CreateNewComment: React.FC<{
     CreateCommentRequest
   >();
   const onSubmit = handleSubmit(({ text }) => {
+    if (text.length > 5000) {
+      alert('コメントが長すぎます。5000文字以内にしてね。');
+      return;
+    }
     createNewComment(threadId, user!.userId, text)
       .then(() => {
         setValue('text', '');
